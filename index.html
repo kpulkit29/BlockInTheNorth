@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Testing</title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+</head>
+<body ng-controller="control1">
+        <md-button ng-click="toggleLeft()" class="md-accent">
+                Open this Sidenav
+              </md-button>
+    <section layout="row" flex>
+        
+            <md-sidenav class="md-sidenav-left" md-component-id="left"
+                        md-disable-backdrop md-whiteframe="4">
+        
+              <md-toolbar class="md-theme-indigo">
+                <h1 class="md-toolbar-tools">Disabled Backdrop</h1>
+              </md-toolbar>
+        
+              <md-content layout-margin>
+                  <ul class="sidelist">
+                     <li>Register</li>
+                     <li>Show Certificate</li>
+                     <li>List</li>
+                  </ul>
+                <md-button ng-click="toggleLeft()" class="md-accent">
+                  Close this Sidenav
+                </md-button>
+              </md-content>
+        
+            </md-sidenav>
+        </section>
+        <div style="display:flex;justify-content:center;">
+                <md-card style="width:40%;height:auto;">
+                       <md-card-title style="text-align: center;">Fill in you details</md-card-title>
+                        <md-card-content>
+                                <md-input-container class="md-block md-float" flex-gt-sm>
+                                        <label>First name</label>
+                                        <input ng-model="">
+                                </md-input-container>
+                                <md-input-container class="md-block md-float" flex-gt-sm>
+                                        <label>Github Profile</label>
+                                        <input ng-model="">
+                                </md-input-container>
+                                <md-input-container class="md-block md-float" flex-gt-sm>
+                                        <label>Linkedin Profile</label>
+                                        <input ng-model="">
+                                </md-input-container>
+                        </md-card-content>
+                        <md-card-footer>
+                          Card footer
+                        </md-card-footer>
+                       </md-card>
+        </div>
+<md-button class="md-primary md-raised" ng-click="add()">Primary Button</md-button>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+<script src="control.js"></script>
+</body>
+</html>

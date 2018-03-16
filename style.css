@@ -1,0 +1,13 @@
+.sidelist li{
+    display:block;
+    height:40px;
+    padding:4px;
+    font-family: 20px;
+    cursor: pointer;
+    margin:5px;
+    color: #3F51B5;
+}
+
+hr{
+    border:1px solid grey;
+}
