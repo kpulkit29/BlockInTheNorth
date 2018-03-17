@@ -1,9 +1,14 @@
 var app=angular.module("app",["ngMaterial"]);
-app.controller("control1",function($scope,$timeout, $mdSidenav){
+app.controller("control1",function($scope,$timeout, $mdSidenav,$mdDialog){
     //variables
     $scope.currentTab='register';
     $scope.mystr='';
+    $scope.addressToSearch='';
     ////
+    //to swtich Tans
+    $scope.changeTab=function(str){
+        $scope.currentTab=str;
+    }
     if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
     } else {
@@ -87,29 +92,32 @@ app.controller("control1",function($scope,$timeout, $mdSidenav){
             "type": "constructor"
         }
     ]);
-    var check = CoursetroContract.at('0x780da07f75662df0ac4db7a9435ba517f32935cb');
+    var check = CoursetroContract.at('0x192d5cfdcdc0921633f832b66c2c4822824b5f18');
     var recEvent=check.fetch();
     //populating list of  shops
     recEvent.watch(function(err,res){
        $scope.mystr=JSON.stringify(res);
-       alert($scope.mystr);
+       var confirm = $mdDialog.confirm()
+       .title('Confirm Your Choice')
+       .content("<h1 class=''certi'>"+$scope.mystr+"</h1>")
+       .ariaLabel('Delete User')
+       .ok('Delete User')
+       .cancel('Cancel');
+       return $mdDialog.show(confirm);
+       //alert($scope.mystr);
     });
     // web3.eth.getBalance(web3.eth.accounts[2],function(err,bal){
     //   console.log(web3.fromWei(bal.toNumber(),"ether"));
     // });
     $scope.add=function(){
-        check.add("0x7155c63cf964de6f28314cedcb156cc3520607eb","oo","pulkit","0x71e89317f86726c14d6132c2be3ee712004b67d7");
-        check.add("0x71e89317f86726c14d6132c2be3ee712004b67d7","oo","pulkit","0x71e89317f86726c14d6132c2be3ee712004b67d7");
-        check.getCerti("0x71e89317f86726c14d6132c2be3ee712004b67d7",function(err,res){
+        check.add("0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db","o","p","00");
+        check.add("0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db","o","p","00");
+       // check.add("0x71e89317f86726c14d6132c2be3ee712004b67d7","oo","pulkit","0x71e89317f86726c14d6132c2be3ee712004b67d7");
+        check.getCerti("0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db",function(err,res){
             if(err) throw err;
             console.log(res);
         });
     }
-
-   check.getCerti("0x71e89317f86726c14d6132c2be3ee712004b67d7",function(err,res){
-       if(err) throw err;
-       console.log(res);
-   });
    $scope.toggleLeft = buildToggler('left');
    $scope.toggleRight = buildToggler('right');
 
