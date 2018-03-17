@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BlockInTheNorth</string>
+    <string name="icon_arrow_up">&#xf102;</string>
+    <string name="description">
+        Made in a Hackathon|Made for Hackathons\n
+        No more taking stacks of certificates to interviews, No more staring at your laptop screens sorting candidates,
+        sort registered candidates instantly as soon as registration is closed,
+        issue hassle-free digitally signed certificates to the participants
+        and access all your previous certificates easily all at one place forever
+        \n\nHello Hackers this is the place to be!!\n
+
+    </string>
+</resources>
