@@ -23,11 +23,12 @@
               </md-toolbar>
         
               <md-content layout-margin>
-                  <ul class="sidelist">
-                     <li>Register</li>
-                     <li>Show Certificate</li>
-                     <li>List</li>
-                  </ul>
+                    <md-list flex>
+                            <md-subheader class="md-no-sticky">What are you up to?</md-subheader>
+                            <md-list-item class="md-3-line" ng-click="null">Register</md-list-item>
+                            <md-list-item class="md-3-line" ng-click="null">Show Certificate</md-list-item>
+                            <md-list-item class="md-3-line" ng-click="null">List</md-list-item>
+                    <md-list>                
                 <md-button ng-click="toggleLeft()" class="md-accent">
                   Close this Sidenav
                 </md-button>
@@ -52,9 +53,6 @@
                                         <input ng-model="">
                                 </md-input-container>
                         </md-card-content>
-                        <md-card-footer>
-                          Card footer
-                        </md-card-footer>
                        </md-card>
         </div>
 <md-button class="md-primary md-raised" ng-click="add()">Primary Button</md-button>
