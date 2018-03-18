@@ -7,20 +7,25 @@
     <title>Testing</title>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="src/jquery.qrcode.js"></script>
+    <script type="text/javascript" src="src/qrcode.js"></script>
+    
     <script src="./node_modules/web3/dist/web3.min.js"></script>
 </head>
 <body ng-controller="control1">
-    <header style="padding:5px;">
-<div>
+    <header style="padding:5px;width:100%;">
+<div style="margin:10px;">
         <img src="images/menu.svg" style="width:50px;height:50px;" ng-click="toggleLeft()">
 </div>
                     
- <div>
-        <h2>Hello Hackers This is place to be</h2>
-        <h2>Get the certi's
+ <div style="margin-left:10%;">
+        <h3>Hello Hackers This is place to be</h3>
+        <h3>Get the certificates
         :)<span>|</span></h3>
  </div>
     </header>
+    <span id="left"></span>
     <section layout="row" flex>
         
             <md-sidenav class="md-sidenav-left" md-component-id="left"
@@ -35,7 +40,7 @@
                             <md-subheader class="md-no-sticky">What are you up to?</md-subheader>
                             <md-list-item class="md-3-line" ng-click="changeTab('register')">Register</md-list-item>
                             <md-list-item class="md-3-line" ng-click="changeTab('scerti')">Show Certificate</md-list-item>
-                            <md-list-item class="md-3-line" ng-click="changeTab('scerti')">Issue Certificate</md-list-item>
+                            <md-list-item class="md-3-line" ng-click="changeTab('issue')">Issue Certificate</md-list-item>
                             <md-list-item class="md-3-line" ng-click="null">List</md-list-item>
            
                     <md-list>                
@@ -52,33 +57,72 @@
                         <md-card-content>
                                 <md-input-container class="md-block md-float" flex-gt-sm>
                                         <label>First name</label>
-                                        <input ng-model="">
+                                        <input ng-model="user.name">
                                 </md-input-container>
                                 <md-input-container class="md-block md-float" flex-gt-sm>
                                         <label>Github Profile</label>
-                                        <input ng-model="">
+                                        <input type="url" ng-model="user.git">
                                 </md-input-container>
                                 <md-input-container class="md-block md-float" flex-gt-sm>
                                         <label>Linkedin Profile</label>
-                                        <input ng-model="">
+                                        <input type="text" ng-model="user.lin" required>
                                 </md-input-container>
-                                <md-button  class="md-raised md-accent" style="display:block;margin:auto;">Submit</md-button>
+                                <md-button  class="md-raised md-accent" style="display:block;margin:auto;" ng-click="submit()">Submit</md-button>
                         </md-card-content>
                        </md-card>
         </div>
+        
+        
+        <!-- add certi -->
+        <div style="display:flex;justify-content:center;" ng-if="(currentTab=='issue')">
+                <md-card>
+                        <md-card-title style="text-align: center;">Fill in you details</md-card-title>
+                        <md-card-content>
+                            <table>
+                                <tr>
+                                    <td>
+                                            <md-input-container class="md-block md-float" flex-gt-sm>
+                                                    <label>Issuing to</label>
+                                                    <input ng-model="issuer.to">
+                                            </md-input-container> 
+                                    </td>
+                                    <td>
+                                            <md-datepicker ng-model="issuer.date" md-placeholder="Enter date"></md-datepicker>
+                                    </td>
+                                </tr>
+                            </table>
+                                </md-input-container>
+                                <md-input-container class="md-block md-float" flex-gt-sm>
+                                        <label>Body of Certificate</label>
+                                        <input ng-model="issuer.body">
+                                </md-input-container>
+                                <md-input-container class="md-block md-float" flex-gt-sm>
+                                        <label>Admin address</label>
+                                        <input ng-model="issuer.from">
+                                </md-input-container>
+                                <md-button  class="md-raised md-accent" style="display:block;margin:auto;" ng-click="callSmart()">Go ahead -></md-button>
+                        </md-card-content>
+                       </md-card>
+        </div>
+        
         <!--- show certi -->
+        <span id="left"></span>
         <div style="display:flex;justify-content:center;" ng-if="(currentTab=='scerti')">
                 <md-card style="width:40%;height:auto;">
-                       <md-card-title style="text-align: center;">Fill in you details</md-card-title>
+                       <md-card-title style="text-align: center;">Click to view The QR code</md-card-title>
                         <md-card-content>
                                 <md-input-container class="md-block md-float" flex-gt-sm>
                                         <label>Enter the address</label>
-                                        <input ng-model="addressToSearch">
+                                        <input ng-model="mystr">
                                 </md-input-container>
+                                <md-button class="md-primary md-raised" style ng-click="get_cert(mystr)">Primary Button</md-button>
                         </md-card-content>
                        </md-card>
                        </div>
-<md-button class="md-primary md-raised" ng-click="add()">Primary Button</md-button>
+                       <div id="qrcode" ng-if="(currentTab=='scerti')"></div>
+                       <footer style="text-align:center;position:fixed;top:90%;left:40%;"><strong>Made in a Hackathon|Made for Hackathons</strong></footer>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>

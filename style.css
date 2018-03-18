@@ -22,7 +22,20 @@ hr{
 .certi{
     overflow-x: hidden;
 }
-h2{
+.mymodal{
+    padding:5px;
+    overflow-x: hidden;
+    height:auto;
+}
+#qrcode{
+    width: 150px;
+    height:150px;
+    display: block;
+    margin:auto;
+    margin-bottom:10px;
+    margin-top:10px;
+}
+h3{
     color: white; 
     font-family: "Courier";
     font-size: 20px;
@@ -33,7 +46,7 @@ h2{
     animation: type 4s steps(60, end); 
   }
   
-  h2:nth-child(2){
+  h3:nth-child(2){
     animation: type2 8s steps(60, end);
   }
   

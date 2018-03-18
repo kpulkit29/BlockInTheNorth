@@ -1,10 +1,26 @@
 var app=angular.module("app",["ngMaterial"]);
-app.controller("control1",function($scope,$timeout, $mdSidenav,$mdDialog){
+app.controller("control1",function($scope,$timeout, $mdSidenav,$mdDialog,$http){
     //variables
+    
     $scope.currentTab='register';
     $scope.mystr='';
-    $scope.addressToSearch='';
+    $scope.certiCalled='';
+    $scope.issuer={
+    }
+    $scope.issuer.to="";
+    $scope.issuer.date="";
+    $scope.issuer.from="";
+    $scope.issuer.body="";
+    //user.model
+    $scope.user={};
+    $scope.name="";
+    $scope.git="";
+    $scope.lin="";
     ////
+    $scope.submit=function(){
+        console.log($scope.user);
+        $http.post("http://98cb354d.ngrok.io/api/submit?name="+$scope.user.name+"&gb="+$scope.user.git+"&lin="+$scope.user.lin);
+    }
     //to swtich Tans
     $scope.changeTab=function(str){
         $scope.currentTab=str;
@@ -93,27 +109,35 @@ app.controller("control1",function($scope,$timeout, $mdSidenav,$mdDialog){
         }
     ]);
     var check = CoursetroContract.at('0x192d5cfdcdc0921633f832b66c2c4822824b5f18');
-    var recEvent=check.fetch();
+    var recEvent=check.fetch({}, 'latest');
     //populating list of  shops
     recEvent.watch(function(err,res){
-       $scope.mystr=JSON.stringify(res);
-       var confirm = $mdDialog.confirm()
-       .title('Confirm Your Choice')
-       .content("<h1 class=''certi'>"+$scope.mystr+"</h1>")
-       .ariaLabel('Delete User')
-       .ok('Delete User')
-       .cancel('Cancel');
-       return $mdDialog.show(confirm);
-       //alert($scope.mystr);
+        console.log(res);
+        // // $mdDialog.show({
+        // //     controller: DialogController,
+        // //     template: "<div class='mymodal'><h1>Hackathon</h1><br><strong>Thanks for participation<strong><p>certified by me</p>",
+        // //     parent: angular.element(document.body),
+        // //     clickOutsideToClose:true,        
+        // // })
+        //   .then(function(answer) {
+          
+        //   }, function() {
+            
+        //   });
+        if($scope.certiCalled.length>0){
+            jQuery('#qrcode').qrcode({
+                render	: "table",
+                text	: "http://98cb354d.ngrok.io/api/"+res.args._issuedto
+            });	
+        }
+
+     
     });
-    // web3.eth.getBalance(web3.eth.accounts[2],function(err,bal){
-    //   console.log(web3.fromWei(bal.toNumber(),"ether"));
-    // });
-    $scope.add=function(){
-        check.add("0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db","o","p","00");
-        check.add("0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db","o","p","00");
-       // check.add("0x71e89317f86726c14d6132c2be3ee712004b67d7","oo","pulkit","0x71e89317f86726c14d6132c2be3ee712004b67d7");
-        check.getCerti("0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db",function(err,res){
+//to get certificate
+    $scope.get_cert=function(str){
+      console.log(str);
+       $scope.certiCalled="called"; 
+       check.getCerti(str,function(err,res){
             if(err) throw err;
             console.log(res);
         });
@@ -126,4 +150,24 @@ app.controller("control1",function($scope,$timeout, $mdSidenav,$mdDialog){
        $mdSidenav(componentId).toggle();
      };
    }
+   //to control dialog
+
+  function DialogController($scope, $mdDialog) {
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
+  ////
+  $scope.callSmart=function(){
+      var date=$scope.issuer.date.toString();console.log(date);
+      check.add($scope.issuer.to,"20th march",$scope.issuer.body,$scope.issuer.from);
+  }
 });
