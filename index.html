@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Testing</title>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
     <script type="text/javascript" src="src/jquery.qrcode.js"></script>
@@ -41,7 +42,7 @@
                             <md-list-item class="md-3-line" ng-click="changeTab('register')">Register</md-list-item>
                             <md-list-item class="md-3-line" ng-click="changeTab('scerti')">Show Certificate</md-list-item>
                             <md-list-item class="md-3-line" ng-click="changeTab('issue')">Issue Certificate</md-list-item>
-                            <md-list-item class="md-3-line" ng-click="null">List</md-list-item>
+                            <md-list-item class="md-3-line" ng-click="changeTab('list')">List</md-list-item>
            
                     <md-list>                
                 <md-button ng-click="toggleLeft()" class="md-accent">
@@ -104,7 +105,23 @@
                         </md-card-content>
                        </md-card>
         </div>
+        <!-- list -->
+        <div ng-if="(currentTab=='list')">
+                <!-- <md-button  class="md-raised md-warn" style="display:block;margin:auto;" ng-click="callSmart()">Refresh</md-button> -->
+                <h2 style="text-align:center">Cheer up You are selected</h2>
+                <md-list id="selected">
         
+                        <md-list-item class="md-2-line" ng-repeat="i in super30" ng-click="null" style="margin:10px;">
+                                <div style="display:flex;flex-direction:column;justify-content:center;">
+                                        <img src="images/github.svg" style="width:40px;height:40px;">
+                                        
+                                        <img src="images/linkedin.svg" style="width:40px;height:40px;">
+                                 </div>
+                         <h1 style="margin:10px;color:#3F51B5">{{i}}</h1>
+                         <hr style="border:1px solid grey;">
+                        </md-list-item>
+                        </md-list>
+        </div>
         <!--- show certi -->
         <span id="left"></span>
         <div style="display:flex;justify-content:center;" ng-if="(currentTab=='scerti')">
@@ -120,7 +137,7 @@
                        </md-card>
                        </div>
                        <div id="qrcode" ng-if="(currentTab=='scerti')"></div>
-                       <footer style="text-align:center;position:fixed;top:90%;left:40%;"><strong>Made in a Hackathon|Made for Hackathons</strong></footer>
+                       <footer style="text-align:center;position:fixed;bottom:0;left:40%;"><strong>Made in a Hackathon|Made for Hackathons</strong></footer>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>

@@ -16,6 +16,11 @@ header{
 header div{
     margin:5px;
 }
+#selected{
+    width:60%;
+    display:block;
+    margin:auto;
+}
 hr{
     border:1px solid grey;
 }
@@ -26,6 +31,9 @@ hr{
     padding:5px;
     overflow-x: hidden;
     height:auto;
+}
+img{
+    margin:10px;
 }
 #qrcode{
     width: 150px;

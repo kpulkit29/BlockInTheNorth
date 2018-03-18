@@ -1,7 +1,7 @@
 var app=angular.module("app",["ngMaterial"]);
 app.controller("control1",function($scope,$timeout, $mdSidenav,$mdDialog,$http){
     //variables
-    
+    $scope.super30=["Pulkit","Prachi"]
     $scope.currentTab='register';
     $scope.mystr='';
     $scope.certiCalled='';
@@ -19,7 +19,22 @@ app.controller("control1",function($scope,$timeout, $mdSidenav,$mdDialog,$http){
     ////
     $scope.submit=function(){
         console.log($scope.user);
-        $http.post("http://98cb354d.ngrok.io/api/submit?name="+$scope.user.name+"&gb="+$scope.user.git+"&lin="+$scope.user.lin);
+        $http.post("http://0e7db34f.ngrok.io/api/submit?name="+$scope.user.name+"&gb="+$scope.user.git+"&lin="+$scope.user.lin).then(res=>{
+            var confirm = $mdDialog.confirm()
+            .title('Done')
+            .textContent('Account Saved')
+            .ariaLabel('Lucky day')
+            .ok('Please do it!')
+  
+      $mdDialog.show(confirm).then(function() {
+  
+      }, function() {
+   
+      });
+      $scope.user.name="";
+      $scope.user.git="";
+      $scope.user.lin="";                     
+        });
     }
     //to swtich Tans
     $scope.changeTab=function(str){
@@ -124,10 +139,12 @@ app.controller("control1",function($scope,$timeout, $mdSidenav,$mdDialog,$http){
         //   }, function() {
             
         //   });
+        
         if($scope.certiCalled.length>0){
+            console.log(typeof(res.args._issuedto))
             jQuery('#qrcode').qrcode({
                 render	: "table",
-                text	: "http://98cb354d.ngrok.io/api/"+res.args._issuedto
+                text	: "http://0e7db34f.ngrok.io/api/"+res.args._issuedto.slice(30,43)
             });	
         }
 
@@ -170,4 +187,5 @@ app.controller("control1",function($scope,$timeout, $mdSidenav,$mdDialog,$http){
       var date=$scope.issuer.date.toString();console.log(date);
       check.add($scope.issuer.to,"20th march",$scope.issuer.body,$scope.issuer.from);
   }
+  
 });
